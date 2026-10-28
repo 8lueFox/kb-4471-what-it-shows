@@ -17,11 +17,11 @@ the bug #4471 was opened for, and a second bug hiding inside it:
 
 This repo is the desk's kb (from the 2026-10-04 export) with my page added, plus the tickets.
 
-- [`src/routes/kb/incidents/4471-what-it-shows/+page.svx`](src/routes/kb/incidents/4471-what-it-shows/+page.svx) —
-  **my page**: the kb page about the problems, added where the kb's index finds it
-  (`import.meta.glob('/src/routes/kb/*/**/+page.svx')`). Runbook layout, signed frontmatter,
-  ends with `<RenderStamp {signature} />`; desk ref derived from the signature:
-  **DR-8MR2-K2PE**. `#lib` components are the kb export's own, now in this repo.
+- [`src/routes/kb/incidents/4471/+page.svx`](src/routes/kb/incidents/4471/+page.svx) —
+  **my page**: the kb's page for #4471, replaced with the split (two problems, 379 + 33),
+  signed frontmatter, ends with `<RenderStamp {signature} />`; desk ref derived from the
+  signature: **DR-8MR2-K2PE**. Numbers come from the kb's own components
+  (`CauseTable` / `QueueTimeline`), computed from `src/lib/data`.
 - [`desk-view.html`](desk-view.html) — the page as the desk will see it: the runbook
   frame, the page body, the render stamp.
 - [`issues/`](issues/) — the bodies of the tickets, one file per problem.

@@ -19,6 +19,11 @@
   h1 { margin: 0.25rem 0 0.5rem; line-height: 1.2; }
   .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; color: var(--muted); font-size: 0.85rem; margin: 0; }
   .status { border: 1px solid var(--line); border-radius: 99px; padding: 0 0.6rem; }
+  .sum { font-size: 1.1rem; }
+  .tags { color: var(--muted); font-size: 0.85em; }
+  .note { color: var(--muted); font-size: 0.85em; }
+  .wrong td { background: var(--warn-bg); }
+  .wrong td:last-child { color: var(--warn); font-weight: 600; }
   aside { border-left: 4px solid var(--warn); padding: 0.5rem 1rem; margin: 1rem 0; background: var(--warn-bg); }
   .stamp { margin: 2rem 0 0; font: 0.85rem var(--mono); color: var(--muted); }
   .stamp b { color: var(--accent); letter-spacing: 0.04em; }
@@ -32,41 +37,41 @@
     <h1>#4471 · what it shows: two problems, not one</h1>
     <p class="meta">
       <span>owner <b>Kacper Jędrzejewski</b></span>
-      <span class="status open">open</span>
+      <span class="status closed">closed</span>
       <span>reviewed 2026-10-28 · 0 days ago</span>
     </p>
   </header>
   <main>
-    <p>The desk merged <strong>412 reports</strong> into #4471 and marked it known: one bug, one fix. The reports
-    are not one bug. They are two. This page splits them, one ticket each.</p>
+    <p>This page replaced the desk's page for #4471. The old one said: one bug, one fix queued.
+    Reading every report shows two bugs. This page splits them, one ticket each. The desk
+    closed #4471 on 5 October: the parser fixed, the hint won't fix.</p>
 
-    <h2>The two problems</h2>
+    <h2>What was really merged</h2>
+    <p class="sum"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p>
     <table>
-      <thead><tr><th>#</th><th>problem</th><th>reports</th><th>tenants</th><th>first seen</th><th>last seen</th></tr></thead>
+      <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead>
       <tbody>
-        <tr><td>1</td><td><a href="https://github.com/8lueFox/kb-4471-what-it-shows/issues/1">Parser reads dates month-first for day-first locales</a></td><td>379</td><td>11</td><td>2026-04-01</td><td>2026-10-04</td></tr>
-        <tr><td>2</td><td><a href="https://github.com/8lueFox/kb-4471-what-it-shows/issues/2">booking-v3 hints MM/DD/YYYY but reads the date day-first</a></td><td>33</td><td>3</td><td>2026-04-17</td><td>2026-09-22</td></tr>
+        <tr>
+          <td><code>parser</code></td><td>379</td>
+          <td class="tags">parser ×356 · hint ×23</td><td>11</td>
+          <td>2026-04-01 → 2026-10-04</td>
+          <td>#4471</td>
+        </tr>
+        <tr class="wrong">
+          <td><code>hint</code></td><td>33</td>
+          <td class="tags">parser ×15 · hint ×18</td><td>3</td>
+          <td>2026-04-17 → 2026-09-22</td>
+          <td>not this ticket — no ticket of its own</td>
+        </tr>
       </tbody>
     </table>
-    <p>379 + 33 = 412: every report in #4471 has exactly one home. Five reports inside the parser
-    count are footnoted there — read differently in the desk's own notes, counted where
-    they're filed.</p>
+    <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
 
-    <h2>How to tell them apart</h2>
-    <ul>
-      <li><strong>Parser</strong> (<code>src/lib/kb/causes.ts</code>, <code>causeOf</code>): the shared parser reads every date
-      month-first. A day-first tenant's dates come out with month and day flipped. Any channel,
-      any day-first tenant. This is the bug #4471 was opened for, and the queued fix is for it.</li>
-      <li><strong>Hint</strong>: the <code>booking-v3</code> form prints <code>MM/DD/YYYY</code> under its date field, people type what
-      the hint tells them — month first — and the form then reads it the tenant's way, day-first.
-      Same-looking symptom, different bug: only channel <code>form</code>, only <code>booking-v3</code> tenants
-      (alder.physio de-DE, copper.studio es-ES, pale.harbour pt-PT).</li>
-    </ul>
-
-    <aside>
-      The hint bug will not be fixed by the queued parser fix. Until it is, those tenants'
-      form reports will keep arriving — and keep reading as “known”.
-    </aside>
+    <p>379 reports are the parser bug the ticket was opened for — month/day flipped because the
+    shared parser reads month-first and day-first tenants write day-first. 33 reports are a
+    different bug: the <code>booking-v3</code> form hints <code>MM/DD/YYYY</code>, people type what the hint says,
+    and the form reads it day-first. Only channel <code>form</code>, only <code>booking-v3</code> tenants
+    (alder.physio de-DE, copper.studio es-ES, pale.harbour pt-PT).</p>
 
     <h2>Why the desk saw one problem</h2>
     <ul>
@@ -77,10 +82,16 @@
       accepted this (“engineering merges them later”) — this page is that merge, done.</li>
     </ul>
 
-    <h2>What to do</h2>
-    <p>Re-open #4471 into the two tickets above. The parser fix is already queued; the hint fix
-    is not, and every day it waits, the desk files its reports under a bug that cannot explain
-    them.</p>
+    <aside>
+      The hint bug was never fixed: the <code>booking-v3</code> form was retired instead. Any tenant still
+      on that form sees flipped dates. A report about it will read as “known” against this page.
+    </aside>
+
+    <h2>Tickets filed</h2>
+    <ul>
+      <li><a href="https://github.com/8lueFox/kb-4471-what-it-shows/issues/1">Parser reads dates month-first for day-first locales — 379 reports</a></li>
+      <li><a href="https://github.com/8lueFox/kb-4471-what-it-shows/issues/2">booking-v3 hints MM/DD/YYYY but reads the date day-first — 33 reports</a></li>
+    </ul>
 
     <p class="stamp">desk ref <b>DR-8MR2-K2PE</b></p>
   </main>
