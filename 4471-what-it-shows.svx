@@ -4,7 +4,7 @@ title: '#4471 · what it shows: two problems, not one'
 owner: Kacper Jędrzejewski
 status: closed
 reviewed: 2026-10-28
-signature: Kacper Jędrzejewski
+signature: v1.eyJzdWIiOiIyNzk0IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxOTQ2MjQsImV4cCI6MTc5MzI4MTAyNH0.V0OLm6cWZKqjUB4LISXsf7jlH-RmPnv92EsEH8glEXE
 ---
 
 <script>
@@ -13,9 +13,9 @@ signature: Kacper Jędrzejewski
   import Callout from '#lib/kb/Callout.svelte';
 </script>
 
-This page replaced the desk's page for #4471. The old one said: one bug, one fix queued.
-Reading every report shows two bugs. This page splits them, one ticket each. The desk
-closed #4471 on 5 October: the parser fixed, the hint won't fix.
+The desk's page for #4471 says: one bug, one fix queued. Reading every report shows two
+bugs. This page splits them, one ticket each. The desk closed #4471 on 5 October: the
+parser fixed, the hint won't fix.
 
 ## What was really merged
 
@@ -41,7 +41,7 @@ and the form reads it day-first. Only channel `form`, only `booking-v3` tenants
 
 <Callout kind="warn">
 The hint bug was never fixed: the `booking-v3` form was retired instead. Any tenant still
-on that form sees flipped dates. A report about it will read as "known" against this page.
+on that form sees flipped dates. A report about it will read as "known" against #4471.
 </Callout>
 
 ## Tickets filed

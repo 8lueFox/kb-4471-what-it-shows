@@ -17,11 +17,13 @@ the bug #4471 was opened for, and a second bug hiding inside it:
 
 This repo is the desk's kb (from the 2026-10-04 export) with my page added, plus the tickets.
 
-- [`src/routes/kb/incidents/4471/+page.svx`](src/routes/kb/incidents/4471/+page.svx) —
-  **my page**: the kb's page for #4471, replaced with the split (two problems, 379 + 33),
-  signed frontmatter, ends with `<RenderStamp {signature} />`; desk ref derived from the
-  signature: **DR-8MR2-K2PE**. Numbers come from the kb's own components
-  (`CauseTable` / `QueueTimeline`), computed from `src/lib/data`.
+- [`src/routes/kb/incidents/4471-what-it-shows/+page.svx`](src/routes/kb/incidents/4471-what-it-shows/+page.svx) —
+  **my page**, added to the kb (the desk's own `incidents/4471` page is unchanged): the
+  split into two problems, 379 + 33, signed frontmatter (`signature` is the ticket issued
+  by the course's `start-challenge` — the desk ref derived from it:
+  **DR-MP79-2GT7**), ends with `<RenderStamp {signature} />`. Numbers come from the kb's
+  own components (`CauseTable` / `QueueTimeline`), computed from `src/lib/data`. A copy
+  sits at the repo root as [`4471-what-it-shows.svx`](4471-what-it-shows.svx).
 - [`desk-view.html`](desk-view.html) — the page as the desk will see it: the runbook
   frame, the page body, the render stamp.
 - [`issues/`](issues/) — the bodies of the tickets, one file per problem.

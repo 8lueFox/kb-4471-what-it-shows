@@ -1,10 +1,9 @@
 ---
 layout: runbook
-title: '#4471 · what it shows: two problems, not one'
-owner: Kacper Jędrzejewski
-status: closed
-reviewed: 2026-10-28
-signature: Kacper Jędrzejewski
+title: '#4471 · dates parse mm/dd in eu locales'
+owner: support desk
+status: known
+reviewed: 2026-09-30
 ---
 
 <script>
@@ -13,40 +12,25 @@ signature: Kacper Jędrzejewski
   import Callout from '#lib/kb/Callout.svelte';
 </script>
 
-This page replaced the desk's page for #4471. The old one said: one bug, one fix queued.
-Reading every report shows two bugs. This page splits them, one ticket each. The desk
-closed #4471 on 5 October: the parser fixed, the hint won't fix.
+Since April, people have told us their bookings land on the wrong day: a month flipped. By
+4 October the desk had **412 reports**.
 
-## What was really merged
+**Merged as one issue.** The parser reads dates month first, and our tenants write the day
+first. The fix is queued.
+
+<Callout>
+Known. One issue, one fix queued.
+</Callout>
+
+## What was merged
 
 <CauseTable ticket={4471} />
-
-379 reports are the parser bug the ticket was opened for — month/day flipped because the
-shared parser reads month-first and day-first tenants write day-first. 33 reports are a
-different bug: the `booking-v3` form hints `MM/DD/YYYY`, people type what the hint says,
-and the form reads it day-first. Only channel `form`, only `booking-v3` tenants
-(alder.physio de-DE, copper.studio es-ES, pale.harbour pt-PT).
 
 ## Since April
 
 <QueueTimeline ticket={4471} />
 
-## Why the desk saw one problem
+## Lessons
 
-- Intake tags disagree with the real cause in 38 of 412 reports: 23 tagged `hint` are
-  parser, 15 tagged `parser` are hint. Tag, not tenant+form, drove the merge queue.
-- Decision 0001 merges reports on subject lines alone. All of these subjects say the same
-  thing ("wrong day", "dates mixed up"), so two bugs merged into one ticket. The decision
-  accepted this ("engineering merges them later") — this page is that merge, done.
-
-<Callout kind="warn">
-The hint bug was never fixed: the `booking-v3` form was retired instead. Any tenant still
-on that form sees flipped dates. A report about it will read as "known" against this page.
-</Callout>
-
-## Tickets filed
-
-- [Parser reads dates month-first for day-first locales — 379 reports](https://github.com/8lueFox/kb-4471-what-it-shows/issues/1)
-- [booking-v3 hints MM/DD/YYYY but reads the date day-first — 33 reports](https://github.com/8lueFox/kb-4471-what-it-shows/issues/2)
-
-<RenderStamp {signature} />
+- A big ticket is mostly one bug reported many times. Merge early, count once.
+- Write the page while the queue is still in your head.
