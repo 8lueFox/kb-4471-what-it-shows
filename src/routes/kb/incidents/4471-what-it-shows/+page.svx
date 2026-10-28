@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · what it shows: three problems, not one'
+title: '#4471 · what it shows: two problems, not one'
 owner: Kacper Jędrzejewski
 status: open
 reviewed: 2026-10-28
@@ -12,49 +12,46 @@ signature: Kacper Jędrzejewski
 </script>
 
 The desk merged **412 reports** into #4471 and marked it known: one bug, one fix. The reports
-are not one bug. They are three. This page splits them, one ticket each.
+are not one bug. They are two. This page splits them, one ticket each.
 
-## The three problems
+## The two problems
 
 | # | problem | reports | tenants | first seen | last seen |
 |---|---------|---------|---------|------------|----------|
-| 1 | [Parser reads dates month-first for day-first locales](https://github.com/8lueFox/kb-4471-what-it-shows/issues/1) | 374 | 11 | 2026-04-01 | 2026-10-04 |
+| 1 | [Parser reads dates month-first for day-first locales](https://github.com/8lueFox/kb-4471-what-it-shows/issues/1) | 379 | 11 | 2026-04-01 | 2026-10-04 |
 | 2 | [booking-v3 hints MM/DD/YYYY but reads the date day-first](https://github.com/8lueFox/kb-4471-what-it-shows/issues/2) | 33 | 3 | 2026-04-17 | 2026-09-22 |
-| 3 | [One-day moves: off-by-one, not swaps](https://github.com/8lueFox/kb-4471-what-it-shows/issues/3) | 5 | 5 | 2026-04-02 | 2026-06-12 |
 
-374 + 33 + 5 = 412: every report in #4471 has exactly one home.
-
-<Callout kind="warn">
-The page for #4471 counts **379** under the parser and footnotes 5 reports "counted where
-they're filed". Those 5 are not swaps at all (see problem 3) — the footnote hides a problem,
-not a rounding error.
-</Callout>
+379 + 33 = 412: every report in #4471 has exactly one home. Five reports inside the parser
+count are footnoted there — read differently in the desk's own notes, counted where
+they're filed.
 
 ## How to tell them apart
 
 - **Parser** (`src/lib/kb/causes.ts`, `causeOf`): the shared parser reads every date
   month-first. A day-first tenant's dates come out with month and day flipped. Any channel,
-  any day-first tenant. This is the bug #4471 was opened for.
+  any day-first tenant. This is the bug #4471 was opened for, and the queued fix is for it.
 - **Hint**: the `booking-v3` form prints `MM/DD/YYYY` under its date field, people type what
   the hint tells them — month first — and the form then reads it the tenant's way, day-first.
   Same-looking symptom, different bug: only channel `form`, only `booking-v3` tenants
   (alder.physio de-DE, copper.studio es-ES, pale.harbour pt-PT).
-- **One-day move**: the date moves by one day, or lands on a different weekday across time
-  zones. Bodies say "Tuesday vs Monday", "only June", "Lisbon Tuesday vs Toronto Monday",
-  "invite arrived before the booking". No month/day swap anywhere in the text.
+
+<Callout kind="warn">
+The hint bug will not be fixed by the queued parser fix. Until it is, those tenants'
+form reports will keep arriving — and keep reading as "known".
+</Callout>
 
 ## Why the desk saw one problem
 
 - Intake tags disagree with the real cause in 38 of 412 reports: 23 tagged `hint` are
   parser, 15 tagged `parser` are hint. Tag, not tenant+form, drove the merge queue.
 - Decision 0001 merges reports on subject lines alone. All of these subjects say the same
-  thing ("wrong day", "dates mixed up"), so three bugs merged into one ticket. The decision
+  thing ("wrong day", "dates mixed up"), so two bugs merged into one ticket. The decision
   accepted this ("engineering merges them later") — this page is that merge, done.
 
 ## What to do
 
-Re-open #4471 into the three tickets above. Until the parser fix ships, the hint bug will
-keep producing reports the desk reads as "known" — it is not, and it will not be fixed by
-the queued parser fix.
+Re-open #4471 into the two tickets above. The parser fix is already queued; the hint fix
+is not, and every day it waits, the desk files its reports under a bug that cannot explain
+them.
 
 <RenderStamp {signature} />
