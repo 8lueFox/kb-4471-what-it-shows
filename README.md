@@ -16,11 +16,12 @@ the bug #4471 was opened for, and a second bug hiding inside it:
 ## Contents
 
 - [`issues/`](issues/) — the bodies of the tickets, one file per problem.
-- [`src/routes/kb/incidents/4471-what-it-shows/+page.svx`](src/routes/kb/incidents/4471-what-it-shows/+page.svx) —
+- [`4471-what-it-shows.svx`](4471-what-it-shows.svx) —
   the kb page about the problems, written in the support desk's kb conventions
   (`.svx`, runbook layout, signed frontmatter, ends with `<RenderStamp {signature} />`;
-  desk ref derived from the signature: **DR-8MR2-K2PE**). The desk can drop it into their
-  kb's `src/routes/kb/incidents/` as-is; `#lib` components come from the kb export.
+  desk ref derived from the signature: **DR-8MR2-K2PE**). In the desk's kb it lives at
+  `src/routes/kb/incidents/4471-what-it-shows/+page.svx`; `#lib` components come from the
+  kb export.
 - [`desk-view.html`](desk-view.html) — the page as the
   desk will see it: the runbook frame, the page body, the render stamp.
 
