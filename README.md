@@ -21,7 +21,7 @@ the bug #4471 was opened for, and a second bug hiding inside it:
   (`.svx`, runbook layout, signed frontmatter, ends with `<RenderStamp {signature} />`;
   desk ref derived from the signature: **DR-8MR2-K2PE**). The desk can drop it into their
   kb's `src/routes/kb/incidents/` as-is; `#lib` components come from the kb export.
-- [`desk-view.html`](desk-view.html) / [`desk-view.png`](desk-view.png) — the page as the
+- [`desk-view.html`](desk-view.html) — the page as the
   desk will see it: the runbook frame, the page body, the render stamp.
 
 ## How the split was computed
